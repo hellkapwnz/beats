@@ -44,11 +44,14 @@ $('.form').submit(e => {
         });
         request.done(data => {
             content.text(data.message);
+            modal.removeClass("error-modal")
+             
             });
         request.fail(data => {
-            const message = data.responseJSON.message;
-            content.text(message);
+            if (data.message == undefined) { message = "Smth went really wrong!" } else { message = data.message }
+            content.text("Smth went really wrong!");
             modal.addClass("error-modal");
+            
         });
         request.always(() =>{
             $.fancybox.open({
